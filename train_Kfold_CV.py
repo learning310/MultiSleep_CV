@@ -8,9 +8,13 @@ from data_loader.data_loaders import *
 from parse_config import ConfigParser
 from trainer import Trainer
 from utils.util import *
+from models.exp1 import Exp1
 from models.exp2 import Exp2
 from models.exp3 import Exp3
+from models.exp4 import Exp4
 from models.exp5 import Exp5
+from models.idea1 import Idea1
+from models.idea2 import Idea2
 
 # fix random seeds for reproducibility
 SEED = 123
@@ -81,7 +85,6 @@ if __name__ == '__main__':
         default="0",
         help='indices of GPUs to enable (default: all)',
     )
-    parser.add_argument('-f', '--folds', type=int, default=20, help='folds')
     parser.add_argument(
         '-da',
         '--np_data_dir',
@@ -89,6 +92,7 @@ if __name__ == '__main__':
         default='./data/',
         help='Directory containing numpy files',
     )
+    parser.add_argument('-f', '--folds', type=int, default=5, help='folds')
 
     CustomArgs = collections.namedtuple('CustomArgs', 'flags type target')
     args = parser.parse_args()

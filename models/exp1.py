@@ -42,7 +42,7 @@ class Exp1(nn.Module):
         )
         self.pos_embed.data.copy_(torch.from_numpy(pos_embed).float().unsqueeze(0))
 
-    def forward(self, x):
+    def forward(self, x, eog):
         # embed patches
         x = self.patch_embed(x)
 

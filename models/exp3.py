@@ -42,9 +42,7 @@ class Exp3(nn.Module):
         self.eog_encoder = Transformer(embed_dim, depth, num_heads, mlp_ratio, dropout)
         # --------------------------------------------------------------------------
 
-        self.classifier1 = nn.Linear(embed_dim, num_classes)
-        self.classifier2 = nn.Linear(embed_dim, num_classes)
-        self.classifier3 = nn.Linear(embed_dim * 2, num_classes)
+        self.classifier = nn.Linear(embed_dim * 2, num_classes)
         self.initialize_weights()
 
     def initialize_weights(self):
@@ -69,12 +67,7 @@ class Exp3(nn.Module):
         y = self.eog_encoder(y)
 
         # classify
-        x = x[:, 0]
-        pred1 = self.classifier1(x)
-        y = y[:, 0]
-        pred2 = self.classifier2(y)
+        z = torch.cat((x[:, 0], y[:, 0]), dim=-1)
+        pred = self.classifier(z)
 
-        z = torch.cat((x, y), dim=-1)
-        pred3 = self.classifier3(z)
-
-        return pred1, pred2, pred3
+        return pred
